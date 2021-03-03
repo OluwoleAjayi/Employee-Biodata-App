@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -16,7 +19,11 @@ import com.example.employeebiodataapplication.db.AppDatabase;
 import com.example.employeebiodataapplication.db.User;
 import com.google.android.material.button.MaterialButton;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.PublicKey;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class registerPage extends AppCompatActivity {
     ImageView imageView;
@@ -36,66 +43,69 @@ public class registerPage extends AppCompatActivity {
         });
 
 
-        final EditText firstName = findViewById(R.id.editFirstName);
-        final EditText lastName = findViewById(R.id.editLastName);
-        final EditText phoneNumber = findViewById(R.id.editPhoneNumber);
-        final EditText emailAddress = findViewById(R.id.editEmailAddress);
-        final EditText dateOfBirth = findViewById(R.id.editDateOfBirth);
-        final EditText department = findViewById(R.id.editDepartment);
-        final EditText role = findViewById(R.id.editRole);
-        final EditText homeAddress = findViewById(R.id.editHomeAddress);
-        final EditText state = findViewById(R.id.editState);
-        final EditText nationality = findViewById(R.id.editNationality);
+                final EditText firstName = findViewById(R.id.editFirstName);
+                final EditText lastName = findViewById(R.id.editLastName);
+                final EditText phoneNumber = findViewById(R.id.editPhoneNumber);
+                final EditText emailAddress = findViewById(R.id.editEmailAddress);
+                final EditText dateOfBirth = findViewById(R.id.editDateOfBirth);
+                final EditText department = findViewById(R.id.editDepartment);
+                final EditText role = findViewById(R.id.editRole);
+                final EditText homeAddress = findViewById(R.id.editHomeAddress);
+                final EditText state = findViewById(R.id.editState);
+                final EditText nationality = findViewById(R.id.editNationality);
 
-        MaterialButton registerUser = findViewById(R.id.registerUserBtn);
-        registerUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerUser(firstName.getText().toString(), lastName.getText().toString(), phoneNumber.getText().toString(),
-                        emailAddress.getText().toString(), dateOfBirth.getText().toString(), department.getText().toString(),
-                        role.getText().toString(), homeAddress.getText().toString(), state.getText().toString(), nationality.getText().toString());
+                MaterialButton registerUser = findViewById(R.id.registerUserBtn);
+                registerUser.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        registerUser(firstName.getText().toString(), lastName.getText().toString(), phoneNumber.getText().toString(),
+                                emailAddress.getText().toString(), dateOfBirth.getText().toString(), department.getText().toString(),
+                                role.getText().toString(), homeAddress.getText().toString(), state.getText().toString(), nationality.getText().toString());
 
-                Intent registerUser = new Intent(registerPage.this, databaseActivity.class);
-                startActivity(registerUser);
+                        Intent registerUser = new Intent(registerPage.this, databaseActivity.class);
+                        startActivity(registerUser);
+                    }
+                });
             }
-        });
-    }
-    private void registerUser(String firstName, String lastName, String phoneNumber, String emailAddress, String dateOfBirth, String department,
-                              String role, String homeAddress, String state, String nationality) {
-        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
-        User user = new User();
-        user.firstName = firstName;
-        user.lastName = lastName;
-        user.phoneNumber = phoneNumber;
-        user.emailAddress = emailAddress;
-        user.dateOfBirth = dateOfBirth;
-        user.department = department;
-        user.role = role;
-        user.homeAddress = homeAddress;
-        user.state = state;
-        user.nationality =nationality;
-        db.userDao().InsertUser(user);
+            private void registerUser(String firstName, String lastName, String phoneNumber, String emailAddress, String dateOfBirth, String department,
+                                      String role, String homeAddress, String state, String nationality) {
+                AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
-        finish();
+                User user = new User();
+                user.firstName = firstName;
+                user.lastName = lastName;
+                user.phoneNumber = phoneNumber;
+                user.emailAddress = emailAddress;
+                user.dateOfBirth = dateOfBirth;
+                user.department = department;
+                user.role = role;
+                user.homeAddress = homeAddress;
+                user.state = state;
+                user.nationality = nationality;
+                db.userDao().InsertUser(user);
+
+                finish();
+            }
+
+            public void open() {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 0);
+            }
+
+            @Override
+            protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+                super.onActivityResult(requestCode, resultCode, data);
+                Bitmap bp = (Bitmap) data.getExtras().get("data");
+                imageView.setImageBitmap(bp);
+            }
+
+            @Override
+            public boolean onCreateOptionsMenu(Menu menu) {
+                getMenuInflater().inflate(R.menu.main, menu);
+                return true;
+            }
+
     }
 
-    public void open() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bp = (Bitmap) data.getExtras().get("data");
-        imageView.setImageBitmap(bp);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-}
 
