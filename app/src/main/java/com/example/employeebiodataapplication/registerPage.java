@@ -19,9 +19,6 @@ import com.google.android.material.button.MaterialButton;
 import java.security.PublicKey;
 
 public class registerPage extends AppCompatActivity {
-    public static final int CAMERA_PERM_CODE = 101;
-    public static final int CAMERA_REQUEST_CODE = 102;
-    public static final int GALLERY_REQUEST_CODE = 105;
     ImageView imageView;
 
 
@@ -54,13 +51,13 @@ public class registerPage extends AppCompatActivity {
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser(firstName.getText().toString(), lastName.getText().toString(), phoneNumber.getInputType(),
-                        emailAddress.getText().toString(), dateOfBirth.getInputType(), department.getText().toString(),
+                registerUser(firstName.getText().toString(), lastName.getText().toString(), phoneNumber.getText().toString(),
+                        emailAddress.getText().toString(), dateOfBirth.getText().toString(), department.getText().toString(),
                         role.getText().toString(), homeAddress.getText().toString(), state.getText().toString(), nationality.getText().toString());
             }
         });
     }
-    private void registerUser(String firstName, String lastName, int phoneNumber, String emailAddress, int dateOfBirth, String department,
+    private void registerUser(String firstName, String lastName, String phoneNumber, String emailAddress, String dateOfBirth, String department,
                               String role, String homeAddress, String state, String nationality) {
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 

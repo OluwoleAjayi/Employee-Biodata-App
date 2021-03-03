@@ -46,16 +46,18 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.myView
 
     @Override
     public void onBindViewHolder(@NonNull UserListAdapter.myViewHolder holder, int position) {
-        holder.tvFirstName.setText(this.userList.get(position).firstName);
-        holder.tvLastName.setText(this.userList.get(position).lastName);
-        holder.tvPhoneNumber.setText(this.userList.get(position).phoneNumber);
-        holder.tvEmailAddress.setText(this.userList.get(position).emailAddress);
-        holder.tvDateOfBirth.setText(this.userList.get(position).dateOfBirth);
-        holder.tvDepartment.setText(this.userList.get(position).department);
-        holder.tvRole.setText(this.userList.get(position).role);
-        holder.tvHomeAddress.setText(this.userList.get(position).homeAddress);
-        holder.tvState.setText(this.userList.get(position).state);
-        holder.tvNationality.setText(userList.);
+        final User user = userList.get(position);
+
+        holder.tvFirstName.setText(user.getFirstName());
+        holder.tvLastName.setText(user.getLastName());
+        holder.tvPhoneNumber.setText(user.getPhoneNumber());
+        holder.tvEmailAddress.setText(user.getEmailAddress());
+        holder.tvDateOfBirth.setText(user.getDateOfBirth());
+        holder.tvDepartment.setText(user.getDepartment());
+        holder.tvRole.setText(user.getRole());
+        holder.tvHomeAddress.setText(user.getHomeAddress());
+        holder.tvState.setText(user.getState());
+        holder.tvNationality.setText(user.getNationality());
 
 
     }
@@ -76,93 +78,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.myView
         MaterialTextView tvState;
         MaterialTextView tvNationality;
 
-        public ImageView getTvImage() {
-            return tvImage;
-        }
-
-        public void setTvImage(ImageView tvImage) {
-            this.tvImage = tvImage;
-        }
-
-        public MaterialTextView getTvFirstName() {
-            return tvFirstName;
-        }
-
-        public void setTvFirstName(MaterialTextView tvFirstName) {
-            this.tvFirstName = tvFirstName;
-        }
-
-        public MaterialTextView getTvLastName() {
-            return tvLastName;
-        }
-
-        public void setTvLastName(MaterialTextView tvLastName) {
-            this.tvLastName = tvLastName;
-        }
-
-        public MaterialTextView getTvPhoneNumber() {
-            return tvPhoneNumber;
-        }
-
-        public void setTvPhoneNumber(MaterialTextView tvPhoneNumber) {
-            this.tvPhoneNumber = tvPhoneNumber;
-        }
-
-        public MaterialTextView getTvEmailAddress() {
-            return tvEmailAddress;
-        }
-
-        public void setTvEmailAddress(MaterialTextView tvEmailAddress) {
-            this.tvEmailAddress = tvEmailAddress;
-        }
-
-        public MaterialTextView getTvDateOfBirth() {
-            return tvDateOfBirth;
-        }
-
-        public void setTvDateOfBirth(MaterialTextView tvDateOfBirth) {
-            this.tvDateOfBirth = tvDateOfBirth;
-        }
-
-        public MaterialTextView getTvDepartment() {
-            return tvDepartment;
-        }
-
-        public void setTvDepartment(MaterialTextView tvDepartment) {
-            this.tvDepartment = tvDepartment;
-        }
-
-        public MaterialTextView getTvRole() {
-            return tvRole;
-        }
-
-        public void setTvRole(MaterialTextView tvRole) {
-            this.tvRole = tvRole;
-        }
-
-        public MaterialTextView getTvHomeAddress() {
-            return tvHomeAddress;
-        }
-
-        public void setTvHomeAddress(MaterialTextView tvHomeAddress) {
-            this.tvHomeAddress = tvHomeAddress;
-        }
-
-        public MaterialTextView getTvState() {
-            return tvState;
-        }
-
-        public void setTvState(MaterialTextView tvState) {
-            this.tvState = tvState;
-        }
-
-        public MaterialTextView getTvNationality() {
-            return tvNationality;
-        }
-
-        public void setTvNationality(MaterialTextView tvNationality) {
-            this.tvNationality = tvNationality;
-        }
 
         public  myViewHolder(View view) {
             super(view);
