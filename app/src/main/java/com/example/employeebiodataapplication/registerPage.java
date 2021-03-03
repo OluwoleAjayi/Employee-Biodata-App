@@ -54,6 +54,9 @@ public class registerPage extends AppCompatActivity {
                 registerUser(firstName.getText().toString(), lastName.getText().toString(), phoneNumber.getText().toString(),
                         emailAddress.getText().toString(), dateOfBirth.getText().toString(), department.getText().toString(),
                         role.getText().toString(), homeAddress.getText().toString(), state.getText().toString(), nationality.getText().toString());
+
+                Intent registerUser = new Intent(registerPage.this, databaseActivity.class);
+                startActivity(registerUser);
             }
         });
     }
