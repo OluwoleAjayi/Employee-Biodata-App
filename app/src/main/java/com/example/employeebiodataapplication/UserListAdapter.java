@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.employeebiodataapplication.db.DataConverter;
 import com.example.employeebiodataapplication.db.User;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -48,16 +49,17 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.myView
     public void onBindViewHolder(@NonNull UserListAdapter.myViewHolder holder, int position) {
         final User user = userList.get(position);
 
-        holder.tvFirstName.setText(user.getFirstName());
-        holder.tvLastName.setText(user.getLastName());
-        holder.tvPhoneNumber.setText(user.getPhoneNumber());
-        holder.tvEmailAddress.setText(user.getEmailAddress());
-        holder.tvDateOfBirth.setText(user.getDateOfBirth());
-        holder.tvDepartment.setText(user.getDepartment());
-        holder.tvRole.setText(user.getRole());
-        holder.tvHomeAddress.setText(user.getHomeAddress());
-        holder.tvState.setText(user.getState());
-        holder.tvNationality.setText(user.getNationality());
+        holder.tvImage.setImageBitmap(DataConverter.convertByteArray(user.getImage()));
+        holder.tvFirstName.setText("First Name: " + user.getFirstName());
+        holder.tvLastName.setText("Last Name: " + user.getLastName());
+        holder.tvPhoneNumber.setText("Phone Number: " + user.getPhoneNumber());
+        holder.tvEmailAddress.setText("Email Address: " + user.getEmailAddress());
+        holder.tvDateOfBirth.setText((CharSequence) user.getDob());
+        holder.tvDepartment.setText("Department: " + user.getDepartment());
+        holder.tvRole.setText("Role: " + user.getRole());
+        holder.tvHomeAddress.setText("Home Address " + user.getHomeAddress());
+        holder.tvState.setText("State: " + user.getState());
+        holder.tvNationality.setText("Nationality: " + user.getNationality());
 
 
     }

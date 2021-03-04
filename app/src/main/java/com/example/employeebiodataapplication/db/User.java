@@ -1,10 +1,10 @@
 package com.example.employeebiodataapplication.db;
 
-import android.media.Image;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.util.Date;
 
 @Entity
 public class User {
@@ -12,8 +12,8 @@ public class User {
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
-    @ColumnInfo(name = "Image")
-    public int image;
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    byte[] image;
 
     @ColumnInfo(name = "First Name")
     public String firstName;
@@ -28,7 +28,7 @@ public class User {
     public String emailAddress;
 
     @ColumnInfo(name = "Date of Birth")
-    public String dateOfBirth;
+    Date dob;
 
     @ColumnInfo(name = "Department")
     public String department;
@@ -53,11 +53,11 @@ public class User {
         this.uid = uid;
     }
 
-    public int getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -93,12 +93,12 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    public Date getDob() {
+        return dob;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
     public String getDepartment() {
