@@ -19,21 +19,7 @@
         android:textSize="18sp"
         android:textStyle="italic" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="18sp"
-        android:textStyle="italic" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textStyle="italic"
-        android:textSize="18sp"
-        android:id="@+id/tvPhoneNumber"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
@@ -68,13 +54,6 @@
         android:textSize="18sp"
         android:id="@+id/tvRole"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textStyle="italic"
-        android:textSize="18sp"
-        android:id="@+id/tvHomeAddress"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvState"

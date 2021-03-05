@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
-
 @Entity
 public class User {
 
@@ -18,17 +16,12 @@ public class User {
     @ColumnInfo(name = "First Name")
     public String firstName;
 
-    @ColumnInfo(name = "Last Name")
-    public String lastName;
-
-    @ColumnInfo(name = "Phone Number")
-    public String phoneNumber;
 
     @ColumnInfo(name = "Email")
     public String emailAddress;
 
     @ColumnInfo(name = "Date of Birth")
-    Date dob;
+    public String date;
 
     @ColumnInfo(name = "Department")
     public String department;
@@ -36,8 +29,6 @@ public class User {
     @ColumnInfo(name = "Role")
     public String role;
 
-    @ColumnInfo(name = "Home Address")
-    public String homeAddress;
 
     @ColumnInfo(name = "State")
     public String state;
@@ -69,22 +60,6 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -93,12 +68,12 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public Date getDob() {
-        return dob;
+    public String getDate() {
+        return date;
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getDepartment() {
@@ -115,14 +90,6 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(String homeAddress) {
-        this.homeAddress = homeAddress;
     }
 
     public String getState() {

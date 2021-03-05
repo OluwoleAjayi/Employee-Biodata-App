@@ -3,13 +3,18 @@ package com.example.employeebiodataapplication;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.employeebiodataapplication.db.AppDatabase;
@@ -18,18 +23,51 @@ import com.example.employeebiodataapplication.db.User;
 import com.example.employeebiodataapplication.db.UserDao;
 import com.google.android.material.button.MaterialButton;
 
-import java.util.Date;
+import java.util.Calendar;
 
-public class registerPage extends AppCompatActivity {
+public class registerPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     ImageView imageView;
     Bitmap bmpImage;
     UserDao userDao;
+    EditText date;
+    DatePickerDialog datePickerDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
+
+        date = (EditText) findViewById(R.id.editDateOfBirth);
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                datePickerDialog = new DatePickerDialog(registerPage.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                date.setText(dayOfMonth + "/"
+                                        + (month + 1) + "/" + year);
+                            }
+                        }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+
+
+        Spinner spinner = (Spinner) findViewById(R.id.editNationality);
+        spinner.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.countries, android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+
 
         imageView = (ImageView) findViewById(R.id.centralImage);
         bmpImage = null;
@@ -41,15 +79,12 @@ public class registerPage extends AppCompatActivity {
         });
 
                 final EditText firstName = findViewById(R.id.editFirstName);
-                final EditText lastName = findViewById(R.id.editLastName);
-                final EditText phoneNumber = findViewById(R.id.editPhoneNumber);
                 final EditText emailAddress = findViewById(R.id.editEmailAddress);
                 final EditText dateOfBirth = findViewById(R.id.editDateOfBirth);
                 final EditText department = findViewById(R.id.editDepartment);
                 final EditText role = findViewById(R.id.editRole);
-                final EditText homeAddress = findViewById(R.id.editHomeAddress);
                 final EditText state = findViewById(R.id.editState);
-                final EditText nationality = findViewById(R.id.editNationality);
+                final Spinner nationality = findViewById(R.id.editNationality);
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
@@ -57,27 +92,19 @@ public class registerPage extends AppCompatActivity {
                 registerUser.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    if (firstName.getText().toString().isEmpty() || lastName.getText().toString().isEmpty() || phoneNumber.getText().toString().isEmpty() ||
-                                emailAddress.getText().toString().isEmpty() || dateOfBirth.getText().toString().isEmpty() || department.getText().toString().isEmpty() ||
-                                role.getText().toString().isEmpty() || homeAddress.getText().toString().isEmpty() || state.getText().toString().isEmpty() ||
-                                nationality.getText().toString().isEmpty() || bmpImage == null) {
+                    if (firstName.getText().toString().isEmpty() || emailAddress.getText().toString().isEmpty() || dateOfBirth.getText().toString().isEmpty()
+                            || department.getText().toString().isEmpty() || role.getText().toString().isEmpty()  || state.getText().toString().isEmpty() ||
+                                nationality.getAdapter().isEmpty() || bmpImage == null) {
                             Toast.makeText(registerPage.this, "Kindly fill in all information", Toast.LENGTH_SHORT).show();
                         }else {
                         User user = new User();
                             user.setFirstName(firstName.getText().toString());
-                            user.setLastName(lastName.getText().toString());
-                            user.setPhoneNumber(phoneNumber.getText().toString());
                             user.setEmailAddress(emailAddress.getText().toString());
-                        //    try {
-                        //        user.setDob(new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirth.getText().toString()));
-                        //    } catch (ParseException e) {
-                        //        e.printStackTrace();
-                        //    }
+                            user.setDate(dateOfBirth.getText().toString());
                             user.setDepartment(department.getText().toString());
                             user.setRole(role.getText().toString());
-                            user.setHomeAddress(homeAddress.getText().toString());
                             user.setState(state.getText().toString());
-                            user.setNationality(nationality.getText().toString());
+                            user.setNationality(nationality.getAdapter().toString());
                             user.setImage(DataConverter.convertImage(bmpImage));
 
                             db.userDao().InsertUser(user);
@@ -120,6 +147,20 @@ public class registerPage extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }
 
 

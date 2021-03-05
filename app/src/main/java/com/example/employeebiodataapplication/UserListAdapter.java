@@ -51,15 +51,12 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.myView
 
         holder.tvImage.setImageBitmap(DataConverter.convertByteArray(user.getImage()));
         holder.tvFirstName.setText("First Name: " + user.getFirstName());
-        holder.tvLastName.setText("Last Name: " + user.getLastName());
-        holder.tvPhoneNumber.setText("Phone Number: " + user.getPhoneNumber());
         holder.tvEmailAddress.setText("Email Address: " + user.getEmailAddress());
-        holder.tvDateOfBirth.setText((CharSequence) user.getDob());
+        holder.tvDateOfBirth.setText("Date of Birth: " + user.getDate());
         holder.tvDepartment.setText("Department: " + user.getDepartment());
         holder.tvRole.setText("Role: " + user.getRole());
-        holder.tvHomeAddress.setText("Home Address " + user.getHomeAddress());
         holder.tvState.setText("State: " + user.getState());
-        holder.tvNationality.setText("Nationality: " + user.getNationality());
+        holder.tvNationality.setText("Country: " + user.getNationality());
 
 
     }
@@ -70,13 +67,10 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.myView
     public class myViewHolder extends RecyclerView.ViewHolder{
         ImageView tvImage;
         MaterialTextView tvFirstName;
-        MaterialTextView tvLastName;
-        MaterialTextView tvPhoneNumber;
         MaterialTextView tvEmailAddress;
         MaterialTextView tvDateOfBirth;
         MaterialTextView tvDepartment;
         MaterialTextView tvRole;
-        MaterialTextView tvHomeAddress;
         MaterialTextView tvState;
         MaterialTextView tvNationality;
 
@@ -85,13 +79,10 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.myView
             super(view);
             tvImage = view.findViewById(R.id.tvImage);
             tvFirstName = view.findViewById(R.id.tvFirstName);
-            tvLastName = view.findViewById(R.id.tvLastName);
-            tvPhoneNumber = view.findViewById(R.id.tvPhoneNumber);
             tvEmailAddress = view.findViewById(R.id.tvEmailAddress);
             tvDateOfBirth = view.findViewById(R.id.tvDateOfBirth);
             tvDepartment = view.findViewById(R.id.tvDepartment);
             tvRole = view.findViewById(R.id.tvRole);
-            tvHomeAddress = view.findViewById(R.id.tvHomeAddress);
             tvState = view.findViewById(R.id.tvState);
             tvNationality = view.findViewById(R.id.tvNationality);
     }
