@@ -1,4 +1,4 @@
-package com.example.employeebiodataapplication.db;
+ package com.example.employeebiodataapplication.db;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,7 +18,7 @@ public class DataConverter {
 
     public static byte[] convertImage(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
     }
     public static Bitmap convertByteArray (byte [] array) {

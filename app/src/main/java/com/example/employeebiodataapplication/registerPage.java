@@ -66,6 +66,8 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.countries, android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        spinner.getSelectedItem().toString();
 
 
 
@@ -149,6 +151,7 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
 
     }
 
