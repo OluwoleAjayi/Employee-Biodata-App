@@ -2,12 +2,19 @@ package com.example.employeebiodataapplication;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.databinding.DataBindingUtil;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.employeebiodataapplication.databinding.ActivityRegisterPageBinding;
 import com.example.employeebiodataapplication.db.AppDatabase;
 import com.example.employeebiodataapplication.db.DataConverter;
 import com.example.employeebiodataapplication.db.User;
@@ -26,20 +34,41 @@ import com.google.android.material.button.MaterialButton;
 import java.util.Calendar;
 
 public class registerPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    Employee biodata;
+    ActivityRegisterPageBinding activityRegisterPageBinding;
+
+
+
+
     ImageView imageView;
     Bitmap bmpImage;
     UserDao userDao;
     EditText date;
     DatePickerDialog datePickerDialog;
+    private NotificationManager notificationManager;
+    private int notificationID = 100;
+    private int numMessages = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_page);
+        activityRegisterPageBinding = DataBindingUtil.setContentView(this, R.layout.activity_register_page);
 
-        date = (EditText) findViewById(R.id.editDateOfBirth);
-        date.setOnClickListener(new View.OnClickListener() {
+        activityRegisterPageBinding.setEmployee(biodata);
+
+
+
+        activityRegisterPageBinding.registerUserBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayNotification();
+            }
+        });
+
+
+        activityRegisterPageBinding.editDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();
@@ -110,14 +139,40 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
                             user.setImage(DataConverter.convertImage(bmpImage));
 
                             db.userDao().InsertUser(user);
+                        Intent registerUser = new Intent(registerPage.this, databaseActivity.class);
+                        startActivity(registerUser);
                         }
 
 
 
-                        Intent registerUser = new Intent(registerPage.this, databaseActivity.class);
-                        startActivity(registerUser);
+
+
+
                     }
                 });
+            }
+            protected void displayNotification () {
+                Log.i("Start", "Notification");
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+
+                builder.setContentTitle("New Message");
+                builder.setContentText("New Employee registered");
+                builder.setTicker("New Message Alert");
+                builder.setSmallIcon(R.id.centralImage);
+
+                builder.setNumber(++numMessages);
+
+                Intent notifyIntent = new Intent(this, databaseActivity.class);
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+                stackBuilder.addParentStack(databaseActivity.class);
+
+                stackBuilder.addNextIntent(notifyIntent);
+                PendingIntent notifyPending = stackBuilder.getPendingIntent(0,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+                builder.setContentIntent(notifyPending);
+                notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(notificationID, builder.build());
+                long when = System.currentTimeMillis();
             }
 
 
