@@ -9,8 +9,10 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.employeebiodataapplication.databinding.RecyclerRowBinding;
 import com.example.employeebiodataapplication.db.DataConverter;
 import com.example.employeebiodataapplication.db.User;
 import com.google.android.material.textview.MaterialTextView;
@@ -18,6 +20,9 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.List;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.myViewHolder> {
+    RecyclerRowBinding recyclerRowBinding;
+
+
     private Context context;
     private List<User> userList;
 
@@ -36,12 +41,15 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.myView
     }
 
 
+
     @NonNull
     @Override
     public UserListAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycler_row, parent, false);
+        recyclerRowBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.recycler_row, parent, false);
 
-        return new myViewHolder(view);
+
+
+        return new myViewHolder(recyclerRowBinding);
 
     }
 
@@ -75,16 +83,16 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.myView
         MaterialTextView tvNationality;
 
 
-        public  myViewHolder(View view) {
-            super(view);
-            tvImage = view.findViewById(R.id.tvImage);
-            tvFirstName = view.findViewById(R.id.tvFirstName);
-            tvEmailAddress = view.findViewById(R.id.tvEmailAddress);
-            tvDateOfBirth = view.findViewById(R.id.tvDateOfBirth);
-            tvDepartment = view.findViewById(R.id.tvDepartment);
-            tvRole = view.findViewById(R.id.tvRole);
-            tvState = view.findViewById(R.id.tvState);
-            tvNationality = view.findViewById(R.id.tvNationality);
+        public  myViewHolder(RecyclerRowBinding recyclerRowBinding) {
+            super(recyclerRowBinding.getRoot());
+            tvImage = recyclerRowBinding.tvImage;
+            tvFirstName = recyclerRowBinding.tvFirstName;
+            tvEmailAddress = recyclerRowBinding.tvEmailAddress;
+            tvDateOfBirth = recyclerRowBinding.tvDateOfBirth;
+            tvDepartment = recyclerRowBinding.tvDepartment;
+            tvRole = recyclerRowBinding.tvRole;
+            tvState = recyclerRowBinding.tvState;
+            tvNationality = recyclerRowBinding.tvNationality;
     }
 
 

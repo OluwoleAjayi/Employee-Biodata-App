@@ -2,6 +2,7 @@ package com.example.employeebiodataapplication;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,18 +10,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.employeebiodataapplication.databinding.ActivityDatabaseBinding;
 import com.example.employeebiodataapplication.db.AppDatabase;
 import com.example.employeebiodataapplication.db.User;
 
 import java.util.List;
 
 public class databaseActivity extends AppCompatActivity {
+    ActivityDatabaseBinding activityDatabaseBinding;
+
     private UserListAdapter userListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_database);
+        activityDatabaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_database);
 
         initRecyclerView();
 
@@ -29,14 +33,13 @@ public class databaseActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        activityDatabaseBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        activityDatabaseBinding.recyclerView.addItemDecoration(dividerItemDecoration);
         userListAdapter = new UserListAdapter(this);
 
-        recyclerView.setAdapter(userListAdapter);
+        activityDatabaseBinding.recyclerView.setAdapter(userListAdapter);
     }
     private void loadUserList() {
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());

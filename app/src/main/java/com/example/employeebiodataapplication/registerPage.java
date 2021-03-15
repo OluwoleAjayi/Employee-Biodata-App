@@ -37,14 +37,11 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
 
     Employee biodata;
     ActivityRegisterPageBinding activityRegisterPageBinding;
-
-
-
+    EditText date;
 
     ImageView imageView;
     Bitmap bmpImage;
     UserDao userDao;
-    EditText date;
     DatePickerDialog datePickerDialog;
     private NotificationManager notificationManager;
     private int notificationID = 100;
@@ -60,15 +57,8 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
 
 
 
-        activityRegisterPageBinding.registerUserBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayNotification();
-            }
-        });
-
-
-        activityRegisterPageBinding.editDateOfBirth.setOnClickListener(new View.OnClickListener() {
+        EditText dob = activityRegisterPageBinding.editDateOfBirth;
+        dob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();
@@ -80,7 +70,7 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                date.setText(dayOfMonth + "/"
+                                dob.setText(dayOfMonth + "/"
                                         + (month + 1) + "/" + year);
                             }
                         }, year, month, day);
@@ -90,17 +80,16 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
 
 
 
-        Spinner spinner = (Spinner) findViewById(R.id.editNationality);
-        spinner.setOnItemSelectedListener(this);
+        activityRegisterPageBinding.editNationality.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.countries, android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        activityRegisterPageBinding.editNationality.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        spinner.getSelectedItem().toString();
+        activityRegisterPageBinding.editNationality.getSelectedItem().toString();
 
 
 
-        imageView = (ImageView) findViewById(R.id.centralImage);
+        imageView = (ImageView) activityRegisterPageBinding.centralImage;
         bmpImage = null;
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,18 +98,19 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-                final EditText firstName = findViewById(R.id.editFirstName);
-                final EditText emailAddress = findViewById(R.id.editEmailAddress);
-                final EditText dateOfBirth = findViewById(R.id.editDateOfBirth);
-                final EditText department = findViewById(R.id.editDepartment);
-                final EditText role = findViewById(R.id.editRole);
-                final EditText state = findViewById(R.id.editState);
-                final Spinner nationality = findViewById(R.id.editNationality);
+        EditText firstName = activityRegisterPageBinding.editFirstName;
+        EditText emailAddress = activityRegisterPageBinding.editEmailAddress;
+        EditText dateOfBirth = activityRegisterPageBinding.editDateOfBirth;
+        EditText department = activityRegisterPageBinding.editDepartment;
+        EditText role = activityRegisterPageBinding.editRole;
+        EditText state = activityRegisterPageBinding.editState;
+        Spinner nationality = activityRegisterPageBinding.editNationality;
+
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
-                MaterialButton registerUser = findViewById(R.id.registerUserBtn);
-                registerUser.setOnClickListener(new View.OnClickListener() {
+
+                activityRegisterPageBinding.registerUserBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                     if (firstName.getText().toString().isEmpty() || emailAddress.getText().toString().isEmpty() || dateOfBirth.getText().toString().isEmpty()
@@ -151,29 +141,7 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
                     }
                 });
             }
-            protected void displayNotification () {
-                Log.i("Start", "Notification");
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
-                builder.setContentTitle("New Message");
-                builder.setContentText("New Employee registered");
-                builder.setTicker("New Message Alert");
-                builder.setSmallIcon(R.id.centralImage);
-
-                builder.setNumber(++numMessages);
-
-                Intent notifyIntent = new Intent(this, databaseActivity.class);
-                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-                stackBuilder.addParentStack(databaseActivity.class);
-
-                stackBuilder.addNextIntent(notifyIntent);
-                PendingIntent notifyPending = stackBuilder.getPendingIntent(0,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                builder.setContentIntent(notifyPending);
-                notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.notify(notificationID, builder.build());
-                long when = System.currentTimeMillis();
-            }
 
 
 
