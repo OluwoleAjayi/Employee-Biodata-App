@@ -53,9 +53,7 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         activityRegisterPageBinding = DataBindingUtil.setContentView(this, R.layout.activity_register_page);
 
-        activityRegisterPageBinding.setEmployee(biodata);
-
-
+        activityRegisterPageBinding.setEmployee(    biodata);
 
         EditText dob = activityRegisterPageBinding.editDateOfBirth;
         dob.setOnClickListener(new View.OnClickListener() {
@@ -78,16 +76,12 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-
-
         activityRegisterPageBinding.editNationality.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.countries, android.R.layout.simple_spinner_dropdown_item);
         activityRegisterPageBinding.editNationality.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         activityRegisterPageBinding.editNationality.getSelectedItem().toString();
-
-
 
         imageView = (ImageView) activityRegisterPageBinding.centralImage;
         bmpImage = null;
@@ -106,9 +100,7 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
         EditText state = activityRegisterPageBinding.editState;
         Spinner nationality = activityRegisterPageBinding.editNationality;
 
-
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-
 
                 activityRegisterPageBinding.registerUserBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -132,18 +124,9 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
                         Intent registerUser = new Intent(registerPage.this, databaseActivity.class);
                         startActivity(registerUser);
                         }
-
-
-
-
-
-
                     }
                 });
             }
-
-
-
 
          final int CAMERA_INTENT = 51;
 
@@ -164,28 +147,17 @@ public class registerPage extends AppCompatActivity implements AdapterView.OnIte
                     if (bmpImage != null) {
                        imageView.setImageBitmap(bmpImage);
                     }
-
-              //  } else {
-              //      Toast.makeText(this, "Result not okay", Toast.LENGTH_SHORT).show();
-             //   }
                 break;
         }
     }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
-
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
-
     }
 }
 

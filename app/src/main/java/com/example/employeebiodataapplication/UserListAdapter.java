@@ -31,6 +31,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.myView
         this.userList = userList;
     }
 
+
     public UserListAdapter(Context context) {
         this.context = context;
     }
